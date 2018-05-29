@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="This is a test1# ls">
+<meta name="description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
 <meta property="og:type" content="article">
-<meta property="og:title" content="test">
-<meta property="og:url" content="https://fengzipei.github.io/2018/05/29/test/index.html">
+<meta property="og:title" content="persistent memory simulation">
+<meta property="og:url" content="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/index.html">
 <meta property="og:site_name" content="Zipei Feng&#39;s notes">
-<meta property="og:description" content="This is a test1# ls">
+<meta property="og:description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-29T13:49:42.915Z">
+<meta property="og:updated_time" content="2018-05-29T17:12:44.655Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="test">
-<meta name="twitter:description" content="This is a test1# ls">
+<meta name="twitter:title" content="persistent memory simulation">
+<meta name="twitter:description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
 
 
 
@@ -117,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="https://fengzipei.github.io/2018/05/29/test/"/>
+  <link rel="canonical" href="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/"/>
 
 
 
 
 
-  <title>test | Zipei Feng's notes</title>
+  <title>persistent memory simulation | Zipei Feng's notes</title>
   
 
 
@@ -240,7 +240,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/29/test/">
+    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zipei Feng">
@@ -257,7 +257,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">test</h1>
+          <h1 class="post-title" itemprop="name headline">persistent memory simulation</h1>
         
 
         <div class="post-meta">
@@ -269,8 +269,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-29T21:49:13+08:00">
-                2018-05-29
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T01:02:43+08:00">
+                2018-05-30
               </time>
             
 
@@ -307,7 +307,19 @@
       
 
       
-        <h1 id="This-is-a-test"><a href="#This-is-a-test" class="headerlink" title="This is a test"></a>This is a test</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> ls</span></span><br></pre></td></tr></table></figure>
+        <h1 id="PMEM-simulation"><a href="#PMEM-simulation" class="headerlink" title="PMEM simulation"></a>PMEM simulation</h1><ol>
+<li><p>make sure the kernel version is 4.x;</p>
+</li>
+<li><p>edit <code>/etc/default/grub</code>:</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX="memmap=nn[KMG]!ss[KMG]"</span><br></pre></td></tr></table></figure>
+<p> this command reserve physical memory region [ss, ss + nn], the unit could be [KB, MB, GB]; </p>
+<p> if more than one persistent memory is needed, add more command:</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX="memmap=nn1[KMG]!ss1[KMG] memmap=nn2[KMG]!ss2[KMG]"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>execute <code>grub-mkconfig -o /boot/grub/grub.cfg</code> to update grub;</p>
+</li>
+<li>reboot, and new persistent memory will be shown as <code>/dev/pmem[01234...]</code></li>
+</ol>
 
       
     </div>
@@ -332,8 +344,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/29/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2018/05/29/image-test/" rel="next" title="image-test">
+                <i class="fa fa-chevron-left"></i> image-test
               </a>
             
           </div>
@@ -341,10 +353,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/29/image-test/" rel="prev" title="image-test">
-                image-test <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -458,7 +466,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#This-is-a-test"><span class="nav-number">1.</span> <span class="nav-text">This is a test</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PMEM-simulation"><span class="nav-number">1.</span> <span class="nav-text">PMEM simulation</span></a></li></ol></div>
             
 
           </div>

@@ -237,6 +237,138 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zipei Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zipei Feng's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/30/persistent-memory-simulation/" itemprop="url">persistent memory simulation</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T01:02:43+08:00">
+                2018-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="PMEM-simulation"><a href="#PMEM-simulation" class="headerlink" title="PMEM simulation"></a>PMEM simulation</h1><ol>
+<li><p>make sure the kernel version is 4.x;</p>
+</li>
+<li><p>edit <code>/etc/default/grub</code>:</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX="memmap=nn[KMG]!ss[KMG]"</span><br></pre></td></tr></table></figure>
+<p> this command reserve physical memory region [ss, ss + nn], the unit could be [KB, MB, GB]; </p>
+<p> if more than one persistent memory is needed, add more command:</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX="memmap=nn1[KMG]!ss1[KMG] memmap=nn2[KMG]!ss2[KMG]"</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>execute <code>grub-mkconfig -o /boot/grub/grub.cfg</code> to update grub;</p>
+</li>
+<li>reboot, and new persistent memory will be shown as <code>/dev/pmem[01234...]</code></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/29/image-test/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -638,7 +770,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
