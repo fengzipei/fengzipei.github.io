@@ -237,6 +237,145 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/Simulate-a-hard-disk-with-file/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zipei Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zipei Feng's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/30/Simulate-a-hard-disk-with-file/" itemprop="url">Simulate a hard disk with file</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T14:56:19+08:00">
+                2018-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Simulate-a-hard-disk-with-file"><a href="#Simulate-a-hard-disk-with-file" class="headerlink" title="Simulate a hard disk with file"></a>Simulate a hard disk with file</h1><ol>
+<li><p>Create a file:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> dd if=/dev/zero of=fake_disk bs=4M count=1024</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Associate the file with <code>/dev/loop1</code>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo losetup /dev/loop1 fake_disk</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create a filesystem on this device:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mkfs.ext4 /dev/loop1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Detach <code>/dev/loop1</code> and <code>fake_disk</code>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo losetup -d /dev/loop1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Mount this file:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> sudo mount -o loop fake_disk /mnt/fake_disk/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Verify using <code>df</code>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> df -a</span><br><span class="line">Filesystem     1K-blocks      Used Available Use% Mounted on</span><br><span class="line">/dev/loop0       3997376      8184   3763096   1% /mnt/fake_disk</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -530,7 +669,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
