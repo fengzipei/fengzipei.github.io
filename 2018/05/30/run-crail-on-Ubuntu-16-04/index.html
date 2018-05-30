@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
+<meta name="description" content="Run crail on Ubuntu 16.04 Set HugePages_Total: 1sudo bash -c &quot;echo 81920 &amp;gt; /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages&quot; Verify it by cat /proc/meminfo.  Mount hugetlbfs: 1sudo mount -t t">
 <meta property="og:type" content="article">
-<meta property="og:title" content="persistent memory simulation">
-<meta property="og:url" content="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/index.html">
+<meta property="og:title" content="run crail on Ubuntu 16.04">
+<meta property="og:url" content="https://fengzipei.github.io/2018/05/30/run-crail-on-Ubuntu-16-04/index.html">
 <meta property="og:site_name" content="Zipei Feng&#39;s notes">
-<meta property="og:description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
+<meta property="og:description" content="Run crail on Ubuntu 16.04 Set HugePages_Total: 1sudo bash -c &quot;echo 81920 &amp;gt; /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages&quot; Verify it by cat /proc/meminfo.  Mount hugetlbfs: 1sudo mount -t t">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-29T17:12:44.655Z">
+<meta property="og:updated_time" content="2018-05-30T11:21:11.244Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="persistent memory simulation">
-<meta name="twitter:description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
+<meta name="twitter:title" content="run crail on Ubuntu 16.04">
+<meta name="twitter:description" content="Run crail on Ubuntu 16.04 Set HugePages_Total: 1sudo bash -c &quot;echo 81920 &amp;gt; /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages&quot; Verify it by cat /proc/meminfo.  Mount hugetlbfs: 1sudo mount -t t">
 
 
 
@@ -117,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/"/>
+  <link rel="canonical" href="https://fengzipei.github.io/2018/05/30/run-crail-on-Ubuntu-16-04/"/>
 
 
 
 
 
-  <title>persistent memory simulation | Zipei Feng's notes</title>
+  <title>run crail on Ubuntu 16.04 | Zipei Feng's notes</title>
   
 
 
@@ -240,7 +240,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/">
+    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/run-crail-on-Ubuntu-16-04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zipei Feng">
@@ -257,7 +257,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">persistent memory simulation</h1>
+          <h1 class="post-title" itemprop="name headline">run crail on Ubuntu 16.04</h1>
         
 
         <div class="post-meta">
@@ -269,7 +269,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T01:02:43+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T19:20:20+08:00">
                 2018-05-30
               </time>
             
@@ -307,18 +307,24 @@
       
 
       
-        <h1 id="PMEM-simulation"><a href="#PMEM-simulation" class="headerlink" title="PMEM simulation"></a>PMEM simulation</h1><ol>
-<li><p>make sure the kernel version is 4.x;</p>
+        <h1 id="Run-crail-on-Ubuntu-16-04"><a href="#Run-crail-on-Ubuntu-16-04" class="headerlink" title="Run crail on Ubuntu 16.04"></a>Run crail on Ubuntu 16.04</h1><ol>
+<li><p>Set HugePages_Total:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo bash -c <span class="string">"echo 81920 &gt; /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages"</span></span><br></pre></td></tr></table></figure>
+<p>Verify it by <code>cat /proc/meminfo</code>.</p>
 </li>
-<li><p>edit <code>/etc/default/grub</code>:</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX="memmap=nn[KMG]!ss[KMG]"</span><br></pre></td></tr></table></figure>
-<p> this command reserve physical memory region [ss, ss + nn], the unit could be [KB, MB, GB]; </p>
-<p> if more than one persistent memory is needed, add more command:</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX="memmap=nn1[KMG]!ss1[KMG] memmap=nn2[KMG]!ss2[KMG]"</span><br></pre></td></tr></table></figure>
+<li><p>Mount hugetlbfs:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t tmpfs -o size=10g tmpfs /media/crail</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>execute <code>grub-mkconfig -o /boot/grub/grub.cfg</code> to update grub;</p>
+<li><p>Set up index path’s mount point.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t hugetlbfs none /mnt</span><br></pre></td></tr></table></figure>
 </li>
-<li>reboot, and new persistent memory will be shown as <code>/dev/pmem[01234...]</code></li>
+<li><p>Set up CRAIL_HOME.</p>
+</li>
+<li><p>Change mount point’s owner:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R hadoop:hadoop /mnt</span><br><span class="line">sudo chown -R hadoop:hadoop /media/crail</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Run crail’s namenode &amp; datanode.</p>
+</li>
 </ol>
 
       
@@ -344,8 +350,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/29/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2018/05/30/compile-hadoop-2-8-on-Ubuntu-16-04/" rel="next" title="compile hadoop 2.8 on Ubuntu 16.04">
+                <i class="fa fa-chevron-left"></i> compile hadoop 2.8 on Ubuntu 16.04
               </a>
             
           </div>
@@ -354,8 +360,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/30/Simulate-a-hard-disk-with-file/" rel="prev" title="Simulate a hard disk with file">
-                Simulate a hard disk with file <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/30/add-system-call-to-kernel-4-x/" rel="prev" title="add system call to kernel 4.x">
+                add system call to kernel 4.x <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -470,7 +476,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PMEM-simulation"><span class="nav-number">1.</span> <span class="nav-text">PMEM simulation</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Run-crail-on-Ubuntu-16-04"><span class="nav-number">1.</span> <span class="nav-text">Run crail on Ubuntu 16.04</span></a></li></ol></div>
             
 
           </div>

@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
+<meta name="description" content="Some dependencies to install before compilation:1sudo apt-get install libncurses5-dev libncursesw5-dev libssl-dev Compile kernel make menuconfig make -j$(nproc) sudo make modules_install sudo make ins">
 <meta property="og:type" content="article">
-<meta property="og:title" content="persistent memory simulation">
-<meta property="og:url" content="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/index.html">
+<meta property="og:title" content="compile kernel 4.4">
+<meta property="og:url" content="https://fengzipei.github.io/2018/05/30/compile-kernel-4-4/index.html">
 <meta property="og:site_name" content="Zipei Feng&#39;s notes">
-<meta property="og:description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
+<meta property="og:description" content="Some dependencies to install before compilation:1sudo apt-get install libncurses5-dev libncursesw5-dev libssl-dev Compile kernel make menuconfig make -j$(nproc) sudo make modules_install sudo make ins">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-29T17:12:44.655Z">
+<meta property="og:updated_time" content="2018-05-30T11:12:05.880Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="persistent memory simulation">
-<meta name="twitter:description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
+<meta name="twitter:title" content="compile kernel 4.4">
+<meta name="twitter:description" content="Some dependencies to install before compilation:1sudo apt-get install libncurses5-dev libncursesw5-dev libssl-dev Compile kernel make menuconfig make -j$(nproc) sudo make modules_install sudo make ins">
 
 
 
@@ -117,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/"/>
+  <link rel="canonical" href="https://fengzipei.github.io/2018/05/30/compile-kernel-4-4/"/>
 
 
 
 
 
-  <title>persistent memory simulation | Zipei Feng's notes</title>
+  <title>compile kernel 4.4 | Zipei Feng's notes</title>
   
 
 
@@ -240,7 +240,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/">
+    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/compile-kernel-4-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zipei Feng">
@@ -257,7 +257,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">persistent memory simulation</h1>
+          <h1 class="post-title" itemprop="name headline">compile kernel 4.4</h1>
         
 
         <div class="post-meta">
@@ -269,7 +269,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T01:02:43+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T19:05:57+08:00">
                 2018-05-30
               </time>
             
@@ -307,19 +307,17 @@
       
 
       
-        <h1 id="PMEM-simulation"><a href="#PMEM-simulation" class="headerlink" title="PMEM simulation"></a>PMEM simulation</h1><ol>
-<li><p>make sure the kernel version is 4.x;</p>
-</li>
-<li><p>edit <code>/etc/default/grub</code>:</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX="memmap=nn[KMG]!ss[KMG]"</span><br></pre></td></tr></table></figure>
-<p> this command reserve physical memory region [ss, ss + nn], the unit could be [KB, MB, GB]; </p>
-<p> if more than one persistent memory is needed, add more command:</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX="memmap=nn1[KMG]!ss1[KMG] memmap=nn2[KMG]!ss2[KMG]"</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>execute <code>grub-mkconfig -o /boot/grub/grub.cfg</code> to update grub;</p>
-</li>
-<li>reboot, and new persistent memory will be shown as <code>/dev/pmem[01234...]</code></li>
+        <h2 id="Some-dependencies-to-install-before-compilation"><a href="#Some-dependencies-to-install-before-compilation" class="headerlink" title="Some dependencies to install before compilation:"></a>Some dependencies to install before compilation:</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libncurses5-dev libncursesw5-dev libssl-dev</span><br></pre></td></tr></table></figure>
+<h2 id="Compile-kernel"><a href="#Compile-kernel" class="headerlink" title="Compile kernel"></a>Compile kernel</h2><ol>
+<li><code>make menuconfig</code></li>
+<li><code>make -j$(nproc)</code></li>
+<li><code>sudo make modules_install</code></li>
+<li><code>sudo make install</code></li>
+<li><code>sudo reboot</code></li>
 </ol>
+<h2 id="Solution-to-PIC-Mode-related-error"><a href="#Solution-to-PIC-Mode-related-error" class="headerlink" title="Solution to PIC Mode related error:"></a>Solution to PIC Mode related error:</h2><p>Add these lines after ‘all: vmlinux’ in Makefile:<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">KBUILD_CFLAGS += <span class="variable">$(<span class="built_in">call</span> cc-option, -fno-pie)</span></span><br><span class="line">KBUILD_CFLAGS += <span class="variable">$(<span class="built_in">call</span> cc-option, -no-pie)</span></span><br><span class="line">KBUILD_AFLAGS += <span class="variable">$(<span class="built_in">call</span> cc-option, -fno-pie)</span></span><br><span class="line">KBUILD_CPPFLAGS += <span class="variable">$(<span class="built_in">call</span> cc-option, -fno-pie)</span></span><br></pre></td></tr></table></figure></p>
+<p>That is,</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">--- a/Makefile</span><br><span class="line">+++ b/Makefile</span><br><span class="line">@@ -608,6 +608,12 @@ <span class="keyword">endif</span> <span class="comment"># $(dot-config)</span></span><br><span class="line"> <span class="comment"># Defaults to vmlinux, but the arch makefile usually adds further targets</span></span><br><span class="line"> all: vmlinux</span><br><span class="line"></span><br><span class="line">+<span class="comment"># force no-pie for distro compilers that enable pie by default</span></span><br><span class="line">+KBUILD_CFLAGS += <span class="variable">$(<span class="built_in">call</span> cc-option, -fno-pie)</span></span><br><span class="line">+KBUILD_CFLAGS += <span class="variable">$(<span class="built_in">call</span> cc-option, -no-pie)</span></span><br><span class="line">+KBUILD_AFLAGS += <span class="variable">$(<span class="built_in">call</span> cc-option, -fno-pie)</span></span><br><span class="line">+KBUILD_CPPFLAGS += <span class="variable">$(<span class="built_in">call</span> cc-option, -fno-pie)</span></span><br><span class="line">+</span><br><span class="line"> <span class="comment"># The arch Makefile can set ARCH_&#123;CPP,A,C&#125;FLAGS to override the default</span></span><br><span class="line"> <span class="comment"># values of the respective KBUILD_* variables</span></span><br><span class="line"> ARCH_CPPFLAGS :=</span><br><span class="line">--</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -344,8 +342,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/29/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2018/05/30/meaning-of-registers-s-name/" rel="next" title="meaning of registers's name">
+                <i class="fa fa-chevron-left"></i> meaning of registers's name
               </a>
             
           </div>
@@ -354,8 +352,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/30/Simulate-a-hard-disk-with-file/" rel="prev" title="Simulate a hard disk with file">
-                Simulate a hard disk with file <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/30/compile-hadoop-2-8-on-Ubuntu-16-04/" rel="prev" title="compile hadoop 2.8 on Ubuntu 16.04">
+                compile hadoop 2.8 on Ubuntu 16.04 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -470,7 +468,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PMEM-simulation"><span class="nav-number">1.</span> <span class="nav-text">PMEM simulation</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Some-dependencies-to-install-before-compilation"><span class="nav-number">1.</span> <span class="nav-text">Some dependencies to install before compilation:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compile-kernel"><span class="nav-number">2.</span> <span class="nav-text">Compile kernel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Solution-to-PIC-Mode-related-error"><span class="nav-number">3.</span> <span class="nav-text">Solution to PIC Mode related error:</span></a></li></ol></div>
             
 
           </div>

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next pisces" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="zlib usage以下是zlib的官方示例，这里对代码进行一些说明。 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868">
+<meta property="og:type" content="article">
+<meta property="og:title" content="zlib usage">
+<meta property="og:url" content="https://fengzipei.github.io/2018/05/30/zlib-usage/index.html">
+<meta property="og:site_name" content="Zipei Feng&#39;s notes">
+<meta property="og:description" content="zlib usage以下是zlib的官方示例，这里对代码进行一些说明。 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-30T11:36:36.307Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="zlib usage">
+<meta name="twitter:description" content="zlib usage以下是zlib的官方示例，这里对代码进行一些说明。 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fengzipei.github.io/2018/05/30/zlib-usage/"/>
+
+
+
+
+
+  <title>zlib usage | Zipei Feng's notes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zipei Feng's notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/zlib-usage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zipei Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zipei Feng's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">zlib usage</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T19:35:30+08:00">
+                2018-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="zlib-usage"><a href="#zlib-usage" class="headerlink" title="zlib usage"></a>zlib usage</h1><p>以下是zlib的<a href="https://zlib.net/zpipe.c" target="_blank" rel="noopener">官方示例</a>，这里对代码进行一些说明。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* zpipe.c: example of proper use of zlib's inflate() and deflate()</span></span><br><span class="line"><span class="comment">   Not copyrighted -- provided to the public domain</span></span><br><span class="line"><span class="comment">   Version 1.4  11 December 2005  Mark Adler */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Version history:</span></span><br><span class="line"><span class="comment">   1.0  30 Oct 2004  First version</span></span><br><span class="line"><span class="comment">   1.1   8 Nov 2004  Add void casting for unused return values</span></span><br><span class="line"><span class="comment">                     Use switch statement for inflate() return values</span></span><br><span class="line"><span class="comment">   1.2   9 Nov 2004  Add assertions to document zlib guarantees</span></span><br><span class="line"><span class="comment">   1.3   6 Apr 2005  Remove incorrect assertion in inf()</span></span><br><span class="line"><span class="comment">   1.4  11 Dec 2005  Add hack to avoid MSDOS end-of-line conversions</span></span><br><span class="line"><span class="comment">                     Avoid some compiler warnings for input and output buffers</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"zlib.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(MSDOS) || defined(OS2) || defined(WIN32) || defined(__CYGWIN__)</span></span><br><span class="line"><span class="meta">#  <span class="meta-keyword">include</span> <span class="meta-string">&lt;fcntl.h&gt;</span></span></span><br><span class="line"><span class="meta">#  <span class="meta-keyword">include</span> <span class="meta-string">&lt;io.h&gt;</span></span></span><br><span class="line"><span class="meta">#  <span class="meta-keyword">define</span> SET_BINARY_MODE(file) setmode(fileno(file), O_BINARY)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="meta">#  <span class="meta-keyword">define</span> SET_BINARY_MODE(file)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CHUNK 16384</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Compress from file source to file dest until EOF on source.</span></span><br><span class="line"><span class="comment">   def() returns Z_OK on success, Z_MEM_ERROR if memory could not be</span></span><br><span class="line"><span class="comment">   allocated for processing, Z_STREAM_ERROR if an invalid compression</span></span><br><span class="line"><span class="comment">   level is supplied, Z_VERSION_ERROR if the version of zlib.h and the</span></span><br><span class="line"><span class="comment">   version of the library linked do not match, or Z_ERRNO if there is</span></span><br><span class="line"><span class="comment">   an error reading or writing the files. */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">def</span><span class="params">(FILE *source, FILE *dest, <span class="keyword">int</span> level)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret, flush;</span><br><span class="line">    <span class="keyword">unsigned</span> have;</span><br><span class="line">    z_stream strm;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> in[CHUNK];</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> out[CHUNK];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* allocate deflate state */</span></span><br><span class="line">    strm.zalloc = Z_NULL;</span><br><span class="line">    strm.zfree = Z_NULL;</span><br><span class="line">    strm.opaque = Z_NULL;</span><br><span class="line">    ret = deflateInit(&amp;strm, level);</span><br><span class="line">    <span class="keyword">if</span> (ret != Z_OK)</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* compress until end of file */</span></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        strm.avail_in = fread(in, <span class="number">1</span>, CHUNK, source);</span><br><span class="line">        <span class="keyword">if</span> (ferror(source)) &#123;</span><br><span class="line">            (<span class="keyword">void</span>)deflateEnd(&amp;strm);</span><br><span class="line">            <span class="keyword">return</span> Z_ERRNO;</span><br><span class="line">        &#125;</span><br><span class="line">        flush = feof(source) ? Z_FINISH : Z_NO_FLUSH;</span><br><span class="line">        strm.next_in = in;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* run deflate() on input until output buffer not full, finish</span></span><br><span class="line"><span class="comment">           compression if all of source has been read in */</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            strm.avail_out = CHUNK;</span><br><span class="line">            strm.next_out = out;</span><br><span class="line">            ret = deflate(&amp;strm, flush);    <span class="comment">/* no bad return value */</span></span><br><span class="line">            assert(ret != Z_STREAM_ERROR);  <span class="comment">/* state not clobbered */</span></span><br><span class="line">            have = CHUNK - strm.avail_out;</span><br><span class="line">            <span class="keyword">if</span> (fwrite(out, <span class="number">1</span>, have, dest) != have || ferror(dest)) &#123;</span><br><span class="line">                (<span class="keyword">void</span>)deflateEnd(&amp;strm);</span><br><span class="line">                <span class="keyword">return</span> Z_ERRNO;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">while</span> (strm.avail_out == <span class="number">0</span>);</span><br><span class="line">        assert(strm.avail_in == <span class="number">0</span>);     <span class="comment">/* all input will be used */</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">/* done when last data in file processed */</span></span><br><span class="line">    &#125; <span class="keyword">while</span> (flush != Z_FINISH);</span><br><span class="line">    assert(ret == Z_STREAM_END);        <span class="comment">/* stream will be complete */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/* clean up and return */</span></span><br><span class="line">    (<span class="keyword">void</span>)deflateEnd(&amp;strm);</span><br><span class="line">    <span class="keyword">return</span> Z_OK;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Decompress from file source to file dest until stream ends or EOF.</span></span><br><span class="line"><span class="comment">   inf() returns Z_OK on success, Z_MEM_ERROR if memory could not be</span></span><br><span class="line"><span class="comment">   allocated for processing, Z_DATA_ERROR if the deflate data is</span></span><br><span class="line"><span class="comment">   invalid or incomplete, Z_VERSION_ERROR if the version of zlib.h and</span></span><br><span class="line"><span class="comment">   the version of the library linked do not match, or Z_ERRNO if there</span></span><br><span class="line"><span class="comment">   is an error reading or writing the files. */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inf</span><span class="params">(FILE *source, FILE *dest)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret;</span><br><span class="line">    <span class="keyword">unsigned</span> have;</span><br><span class="line">    z_stream strm;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> in[CHUNK];</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> out[CHUNK];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* allocate inflate state */</span></span><br><span class="line">    strm.zalloc = Z_NULL;</span><br><span class="line">    strm.zfree = Z_NULL;</span><br><span class="line">    strm.opaque = Z_NULL;</span><br><span class="line">    strm.avail_in = <span class="number">0</span>;</span><br><span class="line">    strm.next_in = Z_NULL;</span><br><span class="line">    ret = inflateInit(&amp;strm);</span><br><span class="line">    <span class="keyword">if</span> (ret != Z_OK)</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* decompress until deflate stream ends or end of file */</span></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        strm.avail_in = fread(in, <span class="number">1</span>, CHUNK, source);</span><br><span class="line">        <span class="keyword">if</span> (ferror(source)) &#123;</span><br><span class="line">            (<span class="keyword">void</span>)inflateEnd(&amp;strm);</span><br><span class="line">            <span class="keyword">return</span> Z_ERRNO;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (strm.avail_in == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        strm.next_in = in;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* run inflate() on input until output buffer not full */</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            strm.avail_out = CHUNK;</span><br><span class="line">            strm.next_out = out;</span><br><span class="line">            ret = inflate(&amp;strm, Z_NO_FLUSH);</span><br><span class="line">            assert(ret != Z_STREAM_ERROR);  <span class="comment">/* state not clobbered */</span></span><br><span class="line">            <span class="keyword">switch</span> (ret) &#123;</span><br><span class="line">            <span class="keyword">case</span> Z_NEED_DICT:</span><br><span class="line">                ret = Z_DATA_ERROR;     <span class="comment">/* and fall through */</span></span><br><span class="line">            <span class="keyword">case</span> Z_DATA_ERROR:</span><br><span class="line">            <span class="keyword">case</span> Z_MEM_ERROR:</span><br><span class="line">                (<span class="keyword">void</span>)inflateEnd(&amp;strm);</span><br><span class="line">                <span class="keyword">return</span> ret;</span><br><span class="line">            &#125;</span><br><span class="line">            have = CHUNK - strm.avail_out;</span><br><span class="line">            <span class="keyword">if</span> (fwrite(out, <span class="number">1</span>, have, dest) != have || ferror(dest)) &#123;</span><br><span class="line">                (<span class="keyword">void</span>)inflateEnd(&amp;strm);</span><br><span class="line">                <span class="keyword">return</span> Z_ERRNO;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">while</span> (strm.avail_out == <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* done when inflate() says it's done */</span></span><br><span class="line">    &#125; <span class="keyword">while</span> (ret != Z_STREAM_END);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* clean up and return */</span></span><br><span class="line">    (<span class="keyword">void</span>)inflateEnd(&amp;strm);</span><br><span class="line">    <span class="keyword">return</span> ret == Z_STREAM_END ? Z_OK : Z_DATA_ERROR;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* report a zlib or i/o error */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">zerr</span><span class="params">(<span class="keyword">int</span> ret)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">fputs</span>(<span class="string">"zpipe: "</span>, <span class="built_in">stderr</span>);</span><br><span class="line">    <span class="keyword">switch</span> (ret) &#123;</span><br><span class="line">    <span class="keyword">case</span> Z_ERRNO:</span><br><span class="line">        <span class="keyword">if</span> (ferror(<span class="built_in">stdin</span>))</span><br><span class="line">            <span class="built_in">fputs</span>(<span class="string">"error reading stdin\n"</span>, <span class="built_in">stderr</span>);</span><br><span class="line">        <span class="keyword">if</span> (ferror(<span class="built_in">stdout</span>))</span><br><span class="line">            <span class="built_in">fputs</span>(<span class="string">"error writing stdout\n"</span>, <span class="built_in">stderr</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> Z_STREAM_ERROR:</span><br><span class="line">        <span class="built_in">fputs</span>(<span class="string">"invalid compression level\n"</span>, <span class="built_in">stderr</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> Z_DATA_ERROR:</span><br><span class="line">        <span class="built_in">fputs</span>(<span class="string">"invalid or incomplete deflate data\n"</span>, <span class="built_in">stderr</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> Z_MEM_ERROR:</span><br><span class="line">        <span class="built_in">fputs</span>(<span class="string">"out of memory\n"</span>, <span class="built_in">stderr</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> Z_VERSION_ERROR:</span><br><span class="line">        <span class="built_in">fputs</span>(<span class="string">"zlib version mismatch!\n"</span>, <span class="built_in">stderr</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* compress or decompress from stdin to stdout */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ret;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* avoid end-of-line conversions */</span></span><br><span class="line">    SET_BINARY_MODE(<span class="built_in">stdin</span>);</span><br><span class="line">    SET_BINARY_MODE(<span class="built_in">stdout</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* do compression if no arguments */</span></span><br><span class="line">    <span class="keyword">if</span> (argc == <span class="number">1</span>) &#123;</span><br><span class="line">        ret = def(<span class="built_in">stdin</span>, <span class="built_in">stdout</span>, Z_DEFAULT_COMPRESSION);</span><br><span class="line">        <span class="keyword">if</span> (ret != Z_OK)</span><br><span class="line">            zerr(ret);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* do decompression if -d specified */</span></span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (argc == <span class="number">2</span> &amp;&amp; <span class="built_in">strcmp</span>(argv[<span class="number">1</span>], <span class="string">"-d"</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">        ret = inf(<span class="built_in">stdin</span>, <span class="built_in">stdout</span>);</span><br><span class="line">        <span class="keyword">if</span> (ret != Z_OK)</span><br><span class="line">            zerr(ret);</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* otherwise, report usage */</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">fputs</span>(<span class="string">"zpipe usage: zpipe [-d] &lt; source &gt; dest\n"</span>, <span class="built_in">stderr</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个程序的输入是文件名，作用是输入的文件压缩成压缩文件或者是将压缩文件解压。根据输入参数的不同，相应地调到def函数或是inf函数，分别代表压缩和解压。def函数和inf函数的输入输出均是文件指针。</p>
+<p><strong>压缩的过程如下：</strong></p>
+<ol>
+<li><p>z_stream保存了当前压缩的上下文状态。压缩的过程首先对z_stream进行初始化，设置压缩等级，其中的几个函数等。</p>
+</li>
+<li><p>用一个大循环从输入文件中最多读出CHUNK字节的数据到in这个buffer中。</p>
+</li>
+<li><p>判断文件是否已经到最后了，以判断是否需要进行flush操作。</p>
+</li>
+<li><p>设置z_stream的next_in为in这个buffer，设置z_stream的avail_in为从文件读到in中的字节数。</p>
+</li>
+<li><p>然后设置z_stream的avail_out为CHUNK，next_out为out这个buffer。</p>
+</li>
+<li><p>然后对z_stream调用deflate，如果已经到了文件的结尾，需要告诉deflate函数。</p>
+</li>
+<li><p>计算出本次deflate操作产出的数据量，<code>have = CHUNK - strm.avail_out;</code>。</p>
+</li>
+<li><p>将本次操作产出的压缩数据写到压缩文件中。</p>
+</li>
+<li><p>内部这个while循环有些不好理解：</p>
+<ol>
+<li>deflate这个函数完成后会更新z_stream中的avail_out, next_out。我们要保证next_out有空间给我们来输出，也就是avail_out不为0。如果输出空间不够了，deflate会停止压缩。</li>
+<li>Z_NO_FLUSH这个标志使deflate可能不会完全将输入一一对应地压缩出来，deflate中会有一些残留的输入还没有输出。这样做是为了提高压缩率。</li>
+<li>由于2中的特征，一次deflate可能不能将输入next_in压缩完，因为输出buffer满了。这种情况下我们要判断输出buffer是否已经满了，即avail_out为0。如果是的话，就要重复循环中的过程，确保输入被压缩完。</li>
+</ol>
+</li>
+<li><p>如果到了文件的结尾，对deflate的调用有Z_FINISH这个标志，使deflate将数据完全压缩后输出到文件。</p>
+</li>
+</ol>
+<p>解压过程和压缩过程区别在于deflate被换成了inflate，过程和压缩过程完全一样。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/30/configure-transparent-proxy-with-router/" rel="next" title="configure transparent proxy with router">
+                <i class="fa fa-chevron-left"></i> configure transparent proxy with router
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/30/hadoop-cluster-setup/" rel="prev" title="hadoop cluster setup">
+                hadoop cluster setup <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Zipei Feng</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#zlib-usage"><span class="nav-number">1.</span> <span class="nav-text">zlib usage</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zipei Feng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

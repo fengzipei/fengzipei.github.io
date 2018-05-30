@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
+<meta name="description" content="EAX: Accumulator Register EBX: Base Register ECX: Counter Register EDX: Data Register ESI: Source Index EDI: Destination Index EBP: Base Pointer ESP: Stack Pointer  The common e prefix stands for ext">
 <meta property="og:type" content="article">
-<meta property="og:title" content="persistent memory simulation">
-<meta property="og:url" content="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/index.html">
+<meta property="og:title" content="meaning of registers&#39;s name">
+<meta property="og:url" content="https://fengzipei.github.io/2018/05/30/meaning-of-registers-s-name/index.html">
 <meta property="og:site_name" content="Zipei Feng&#39;s notes">
-<meta property="og:description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
+<meta property="og:description" content="EAX: Accumulator Register EBX: Base Register ECX: Counter Register EDX: Data Register ESI: Source Index EDI: Destination Index EBP: Base Pointer ESP: Stack Pointer  The common e prefix stands for ext">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-29T17:12:44.655Z">
+<meta property="og:updated_time" content="2018-05-30T11:04:51.409Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="persistent memory simulation">
-<meta name="twitter:description" content="PMEM simulation make sure the kernel version is 4.x;  edit /etc/default/grub:  1GRUB_CMDLINE_LINUX=&quot;memmap=nn[KMG]!ss[KMG]&quot;  this command reserve physical memory region [ss, ss + nn], the unit could b">
+<meta name="twitter:title" content="meaning of registers&#39;s name">
+<meta name="twitter:description" content="EAX: Accumulator Register EBX: Base Register ECX: Counter Register EDX: Data Register ESI: Source Index EDI: Destination Index EBP: Base Pointer ESP: Stack Pointer  The common e prefix stands for ext">
 
 
 
@@ -117,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/"/>
+  <link rel="canonical" href="https://fengzipei.github.io/2018/05/30/meaning-of-registers-s-name/"/>
 
 
 
 
 
-  <title>persistent memory simulation | Zipei Feng's notes</title>
+  <title>meaning of registers's name | Zipei Feng's notes</title>
   
 
 
@@ -240,7 +240,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/persistent-memory-simulation/">
+    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/meaning-of-registers-s-name/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zipei Feng">
@@ -257,7 +257,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">persistent memory simulation</h1>
+          <h1 class="post-title" itemprop="name headline">meaning of registers's name</h1>
         
 
         <div class="post-meta">
@@ -269,7 +269,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T01:02:43+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T19:01:51+08:00">
                 2018-05-30
               </time>
             
@@ -307,19 +307,17 @@
       
 
       
-        <h1 id="PMEM-simulation"><a href="#PMEM-simulation" class="headerlink" title="PMEM simulation"></a>PMEM simulation</h1><ol>
-<li><p>make sure the kernel version is 4.x;</p>
-</li>
-<li><p>edit <code>/etc/default/grub</code>:</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX="memmap=nn[KMG]!ss[KMG]"</span><br></pre></td></tr></table></figure>
-<p> this command reserve physical memory region [ss, ss + nn], the unit could be [KB, MB, GB]; </p>
-<p> if more than one persistent memory is needed, add more command:</p>
- <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GRUB_CMDLINE_LINUX="memmap=nn1[KMG]!ss1[KMG] memmap=nn2[KMG]!ss2[KMG]"</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>execute <code>grub-mkconfig -o /boot/grub/grub.cfg</code> to update grub;</p>
-</li>
-<li>reboot, and new persistent memory will be shown as <code>/dev/pmem[01234...]</code></li>
-</ol>
+        <ul>
+<li>EAX: Accumulator Register</li>
+<li>EBX: Base Register</li>
+<li>ECX: Counter Register</li>
+<li>EDX: Data Register</li>
+<li>ESI: Source Index</li>
+<li>EDI: Destination Index</li>
+<li>EBP: Base Pointer</li>
+<li>ESP: Stack Pointer</li>
+</ul>
+<p>The common e prefix stands for extended, as these are 32-bit extensions of the 16-bit registers %ax, %bx, %cx, %dx, %di, %si, %bp, %sp, and %ip.</p>
 
       
     </div>
@@ -344,8 +342,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/29/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2018/05/30/Simulate-a-hard-disk-with-file/" rel="next" title="Simulate a hard disk with file">
+                <i class="fa fa-chevron-left"></i> Simulate a hard disk with file
               </a>
             
           </div>
@@ -354,8 +352,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/30/Simulate-a-hard-disk-with-file/" rel="prev" title="Simulate a hard disk with file">
-                Simulate a hard disk with file <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/30/compile-kernel-4-4/" rel="prev" title="compile kernel 4.4">
+                compile kernel 4.4 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -408,17 +406,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -460,22 +449,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#PMEM-simulation"><span class="nav-number">1.</span> <span class="nav-text">PMEM simulation</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
