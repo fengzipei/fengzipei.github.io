@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="Configure transparent proxy with router Environment: Router: ASUS ac66u_b1 OS: asus merlin 384.3 Shadowsocks: shadowsocks-libev 3.1(support udp relay)   Install shadowsocks-libev on VPS, start ss-serv">
+<meta name="description" content="Compile filesystem as module1. PurposeTo avoid rebooting in filesystem development. 2. EnvironmentOS: Ubuntu 16.04.4 LTS Kernel: 4.4.1 Target filesystem: EXT2 3. Procedure Run make menuconfig, mark EX">
 <meta property="og:type" content="article">
-<meta property="og:title" content="configure transparent proxy with router">
-<meta property="og:url" content="https://fengzipei.github.io/2018/05/30/configure-transparent-proxy-with-router/index.html">
+<meta property="og:title" content="Compile filesystem as module">
+<meta property="og:url" content="https://fengzipei.github.io/2018/07/18/compile_filesystem_as_module/index.html">
 <meta property="og:site_name" content="Zipei Feng&#39;s notes">
-<meta property="og:description" content="Configure transparent proxy with router Environment: Router: ASUS ac66u_b1 OS: asus merlin 384.3 Shadowsocks: shadowsocks-libev 3.1(support udp relay)   Install shadowsocks-libev on VPS, start ss-serv">
+<meta property="og:description" content="Compile filesystem as module1. PurposeTo avoid rebooting in filesystem development. 2. EnvironmentOS: Ubuntu 16.04.4 LTS Kernel: 4.4.1 Target filesystem: EXT2 3. Procedure Run make menuconfig, mark EX">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-30T11:34:07.998Z">
+<meta property="og:updated_time" content="2018-07-18T10:25:14.861Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="configure transparent proxy with router">
-<meta name="twitter:description" content="Configure transparent proxy with router Environment: Router: ASUS ac66u_b1 OS: asus merlin 384.3 Shadowsocks: shadowsocks-libev 3.1(support udp relay)   Install shadowsocks-libev on VPS, start ss-serv">
+<meta name="twitter:title" content="Compile filesystem as module">
+<meta name="twitter:description" content="Compile filesystem as module1. PurposeTo avoid rebooting in filesystem development. 2. EnvironmentOS: Ubuntu 16.04.4 LTS Kernel: 4.4.1 Target filesystem: EXT2 3. Procedure Run make menuconfig, mark EX">
 
 
 
@@ -117,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="https://fengzipei.github.io/2018/05/30/configure-transparent-proxy-with-router/"/>
+  <link rel="canonical" href="https://fengzipei.github.io/2018/07/18/compile_filesystem_as_module/"/>
 
 
 
 
 
-  <title>configure transparent proxy with router | Zipei Feng's notes</title>
+  <title>Compile filesystem as module | Zipei Feng's notes</title>
   
 
 
@@ -240,7 +240,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/configure-transparent-proxy-with-router/">
+    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/07/18/compile_filesystem_as_module/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zipei Feng">
@@ -257,7 +257,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">configure transparent proxy with router</h1>
+          <h1 class="post-title" itemprop="name headline">Compile filesystem as module</h1>
         
 
         <div class="post-meta">
@@ -269,8 +269,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T19:31:00+08:00">
-                2018-05-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-18T18:23:03+08:00">
+                2018-07-18
               </time>
             
 
@@ -307,25 +307,37 @@
       
 
       
-        <h1 id="Configure-transparent-proxy-with-router"><a href="#Configure-transparent-proxy-with-router" class="headerlink" title="Configure transparent proxy with router"></a>Configure transparent proxy with router</h1><blockquote>
-<p>Environment:</p>
-<p>Router: ASUS ac66u_b1</p>
-<p>OS: asus merlin 384.3</p>
-<p>Shadowsocks: shadowsocks-libev 3.1(support udp relay)</p>
-</blockquote>
-<ol>
-<li><p>Install shadowsocks-libev on VPS, start ss-server with udp relay enabled <code>-u</code>.</p>
+        <h1 id="Compile-filesystem-as-module"><a href="#Compile-filesystem-as-module" class="headerlink" title="Compile filesystem as module"></a>Compile filesystem as module</h1><h2 id="1-Purpose"><a href="#1-Purpose" class="headerlink" title="1. Purpose"></a>1. Purpose</h2><p>To avoid rebooting in filesystem development.</p>
+<h2 id="2-Environment"><a href="#2-Environment" class="headerlink" title="2. Environment"></a>2. Environment</h2><p>OS: Ubuntu 16.04.4 LTS</p>
+<p>Kernel: 4.4.1</p>
+<p>Target filesystem: EXT2</p>
+<h2 id="3-Procedure"><a href="#3-Procedure" class="headerlink" title="3. Procedure"></a>3. Procedure</h2><ol>
+<li><p>Run <code>make menuconfig</code>, mark EXT2 as module:</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;M&gt;</span> <span class="attribute">Second</span> extended fs support</span><br></pre></td></tr></table></figure>
+<p>save this configuration.</p>
 </li>
-<li><p>Install ss-redir on router(need to install entware first).</p>
+<li><p>Compile &amp;&amp; install kernel:</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">make</span> -j$(nproc)</span><br><span class="line"><span class="built_in">make</span> modules_install</span><br><span class="line"><span class="built_in">make</span> install</span><br></pre></td></tr></table></figure>
+<p>reboot and choose this kernel in grub.</p>
 </li>
-<li><p>Start ss-redir on router with <code>-u</code>.</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ss-redir -s [VPS<span class="string">'s ipv6 address] -p [shadowsocks'</span>s port] -m [encrypt method] -k [password] -b 0.0.0.0 -l 1080 -u &gt; /dev/null &amp;</span><br></pre></td></tr></table></figure>
+<li><p>Create a directory called ‘modulefs’, and copy EXT2 source files to it:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> ~</span><br><span class="line"><span class="built_in">mkdir</span> modulefs</span><br><span class="line"><span class="keyword">cp</span> -r <span class="symbol">&lt;kernel_directory&gt;</span>/fs/ext2 modulefs</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>Enable TPROXY on router:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">modprobe ip_set</span><br><span class="line">modprobe ip_set_hash_net</span><br><span class="line">modprobe ip_set_hash_ip</span><br><span class="line">modprobe xt_set</span><br><span class="line">modprobe xt_TPROXY.ko</span><br></pre></td></tr></table></figure>
+<li><p>Modify <code>Makefile</code> of EXT2, here is the <code>diff</code> result:</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">5c5</span><br><span class="line">&lt; obj-$(CONFIG_EXT2_FS) += ext2.o</span><br><span class="line"><span class="comment">---</span></span><br><span class="line">&gt; obj-m += ext2.o</span><br><span class="line">9a10,12</span><br><span class="line">&gt; KERNELDIR:=/home/feng/btrfs-test/linux-4.4.1/</span><br><span class="line">&gt; PWD:=$(shell pwd)</span><br><span class="line">&gt;</span><br><span class="line">12a16,20</span><br><span class="line">&gt;</span><br><span class="line">&gt; default:</span><br><span class="line">&gt;       make -C $(KERNELDIR) M=$(PWD) modules</span><br><span class="line">&gt; clean:</span><br><span class="line">&gt;       rm -rf *.o *.mod.c *.ko *.symvers</span><br></pre></td></tr></table></figure>
+<p><strong>Replace </strong> <em>KERNELDIR</em> path with your kernel path.</p>
 </li>
-<li><p>Configure iptables:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># TCP rules</span></span><br><span class="line">iptables -t nat -N SHADOWSOCKS_TCP</span><br><span class="line">iptables -t nat -A SHADOWSOCKS -d [VPS<span class="string">'s ipv4 address] -j RETURN</span></span><br><span class="line"><span class="string">iptables -t nat -A SHADOWSOCKS_TCP -d 0.0.0.0/8 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t nat -A SHADOWSOCKS_TCP -d 10.0.0.0/8 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t nat -A SHADOWSOCKS_TCP -d 127.0.0.0/8 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t nat -A SHADOWSOCKS_TCP -d 169.254.0.0/16 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t nat -A SHADOWSOCKS_TCP -d 172.16.0.0/12 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t nat -A SHADOWSOCKS_TCP -d 192.168.0.0/16 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t nat -A SHADOWSOCKS_TCP -d 224.0.0.0/4 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t nat -A SHADOWSOCKS_TCP -d 240.0.0.0/4 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t nat -A SHADOWSOCKS_TCP -p tcp -j REDIRECT --to-ports 1080</span></span><br><span class="line"><span class="string">iptables -t nat -I PREROUTING 1 -p tcp -j SHADOWSOCKS_TCP</span></span><br><span class="line"><span class="string">iptables -t nat -I OUTPUT 1 -p tcp -j SHADOWSOCKS_TCP</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># UDP rules</span></span><br><span class="line"><span class="string">iptables -t mangle -N SHADOWSOCKS_UDP</span></span><br><span class="line"><span class="string">iptables -t mangle -N SHADOWSOCKS_MARK</span></span><br><span class="line"><span class="string">ip rule add fwmark 1 lookup 100</span></span><br><span class="line"><span class="string">ip route add local default dev lo table 100</span></span><br><span class="line"><span class="string">iptables -t nat -A SHADOWSOCKS_MARK -d [VPS'</span>s ipv4 address] -j RETURN</span><br><span class="line">iptables -t mangle -A SHADOWSOCKS_MARK -d 0.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t mangle -A SHADOWSOCKS_MARK -d 10.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t mangle -A SHADOWSOCKS_MARK -d 127.0.0.0/8 -j RETURN</span><br><span class="line">iptables -t mangle -A SHADOWSOCKS_MARK -d 169.254.0.0/16 -j RETURN</span><br><span class="line">iptables -t mangle -A SHADOWSOCKS_MARK -d 172.16.0.0/12 -j RETURN</span><br><span class="line">iptables -t mangle -A SHADOWSOCKS_MARK -d 192.168.0.0/16 -j RETURN</span><br><span class="line">iptables -t mangle -A SHADOWSOCKS_MARK -d 224.0.0.0/4 -j RETURN</span><br><span class="line">iptables -t mangle -A SHADOWSOCKS_MARK -d 240.0.0.0/4 -j RETURN</span><br><span class="line">iptables -t nat -A SHADOWSOCKS_UDP -d [VPS<span class="string">'s ipv4 address] -j RETURN</span></span><br><span class="line"><span class="string">iptables -t mangle -A SHADOWSOCKS_UDP -d 0.0.0.0/8 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t mangle -A SHADOWSOCKS_UDP -d 10.0.0.0/8 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t mangle -A SHADOWSOCKS_UDP -d 127.0.0.0/8 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t mangle -A SHADOWSOCKS_UDP -d 169.254.0.0/16 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t mangle -A SHADOWSOCKS_UDP -d 172.16.0.0/12 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t mangle -A SHADOWSOCKS_UDP -d 192.168.0.0/16 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t mangle -A SHADOWSOCKS_UDP -d 224.0.0.0/4 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t mangle -A SHADOWSOCKS_UDP -d 240.0.0.0/4 -j RETURN</span></span><br><span class="line"><span class="string">iptables -t mangle -A SHADOWSOCKS_MARK -p udp -d 8.8.8.8 --dport 53 -j MARK --set-mark 1</span></span><br><span class="line"><span class="string">iptables -t mangle -A SHADOWSOCKS_UDP -p udp --dport 53 -j TPROXY --on-port 1080 --on-ip 192.168.50.1 --tproxy-mark 0x01/0x01</span></span><br><span class="line"><span class="string">iptables -t mangle -A PREROUTING -p udp -j SHADOWSOCKS_UDP</span></span><br><span class="line"><span class="string">iptables -t mangle -A OUTPUT -p udp -j SHADOWSOCKS_MARK</span></span><br></pre></td></tr></table></figure></li>
+<li><p>In ~/modulefs/ext2/, compile EXT2:</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">make</span> clean</span><br><span class="line"><span class="built_in">make</span> -j$(nproc)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Remove EXT2 module in system:</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">modprobe <span class="keyword">ext2</span></span><br><span class="line"><span class="keyword">rmmod </span><span class="keyword">ext2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Insert our EXT2 module into system:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">insmod</span> <span class="selector-tag">ext2</span><span class="selector-class">.ko</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Add some <code>printk</code> in EXT2 source code to make sure verify this module.</p>
+</li>
 </ol>
 
       
@@ -351,8 +363,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/30/enable-bbr-on-Ubuntu-16-04/" rel="next" title="enable bbr on Ubuntu 16.04">
-                <i class="fa fa-chevron-left"></i> enable bbr on Ubuntu 16.04
+              <a href="/2018/05/30/hadoop-cluster-setup/" rel="next" title="hadoop cluster setup">
+                <i class="fa fa-chevron-left"></i> hadoop cluster setup
               </a>
             
           </div>
@@ -360,10 +372,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/30/zlib-usage/" rel="prev" title="zlib usage">
-                zlib usage <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -477,7 +485,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Configure-transparent-proxy-with-router"><span class="nav-number">1.</span> <span class="nav-text">Configure transparent proxy with router</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Compile-filesystem-as-module"><span class="nav-number">1.</span> <span class="nav-text">Compile filesystem as module</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Purpose"><span class="nav-number">1.1.</span> <span class="nav-text">1. Purpose</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Environment"><span class="nav-number">1.2.</span> <span class="nav-text">2. Environment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Procedure"><span class="nav-number">1.3.</span> <span class="nav-text">3. Procedure</span></a></li></ol></li></ol></div>
             
 
           </div>
