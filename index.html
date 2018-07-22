@@ -237,6 +237,219 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/07/22/Build-ZFS-with-QAT-supported/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Zipei Feng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zipei Feng's notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/22/Build-ZFS-with-QAT-supported/" itemprop="url">Build_ZFS_with_QAT_supported</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-22T20:21:32+08:00">
+                2018-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Build-ZFS-with-QAT-supported"><a href="#Build-ZFS-with-QAT-supported" class="headerlink" title="Build ZFS with QAT supported"></a>Build ZFS with QAT supported</h1><h2 id="0-System-environment"><a href="#0-System-environment" class="headerlink" title="0. System environment"></a>0. System environment</h2><blockquote>
+<p>OS: Ubuntu 16.04 LTS</p>
+<p>Kernel: linux 4.4.1</p>
+<p>QAT hardware: DH895XCC</p>
+<p>QAT driver: qatmux.l.2.6.0-60</p>
+<p>ZFS: 0.7.0</p>
+</blockquote>
+<h2 id="1-Build-amp-install-QAT-driver"><a href="#1-Build-amp-install-QAT-driver" class="headerlink" title="1. Build &amp; install QAT driver"></a>1. Build &amp; install QAT driver</h2><ol>
+<li><p>Download QAT driver from intel:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://01.org/sites/default/files/page/qatmux.l.2.6.0-60.tgz</span><br></pre></td></tr></table></figure>
+<p>Note: I tried to install <a href="https://01.org/sites/default/files/downloads/intelr-quickassist-technology/qat1.7.l.4.2.0-00012.tar.gz" target="_blank" rel="noopener">qat1.7</a> and qat1.6, but I failed.</p>
+</li>
+<li><p>Create a directory and extract driver to here:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir QAT</span><br><span class="line">cd QAT</span><br><span class="line">tar zxvf ../qatmux.l.2.6.0-60.tgz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>There are some places need to modify:</p>
+<ol>
+<li><p>QAT1.6/quickassist/utilities/osal/src/linux/user_space/OsalCryptoInterface.c:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">77</span> OSAL_STATUS</span><br><span class="line"><span class="number">78</span> osalHashSHA1(UINT8 *in, UINT8 *out)</span><br><span class="line"><span class="number">79</span> &#123;</span><br><span class="line"><span class="number">80</span>     SHA_CTX ctx;</span><br><span class="line"><span class="number">81</span>     <span class="keyword">if</span>(!SHA_Init(&amp;ctx))</span><br><span class="line"><span class="number">82</span>     &#123;</span><br><span class="line"><span class="number">83</span>         <span class="keyword">return</span> OSAL_FAIL;</span><br><span class="line"><span class="number">84</span>     &#125;</span><br><span class="line"><span class="number">85</span>     SHA1_Transform(&amp;ctx, in);</span><br><span class="line"><span class="number">86</span>     <span class="built_in">memcpy</span>(out, &amp;ctx, SHA_DIGEST_LENGTH);</span><br><span class="line"><span class="number">87</span>     <span class="keyword">return</span> OSAL_SUCCESS;</span><br><span class="line"><span class="number">88</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>change SHA_INIT to SHA1_INIT.</p>
+</li>
+<li><p>QAT1.6/quickassist/adf/drivers/common/linux/src/adf_proc_debug.c:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">int</span> <span class="title">adf_debug_show</span><span class="params">(struct seq_file *sfile, <span class="keyword">void</span> *v)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">        <span class="keyword">debug_file_info_t</span>* file_info = sfile-&gt;<span class="keyword">private</span>;</span><br><span class="line">        <span class="keyword">if</span> (file_info &amp;&amp; file_info-&gt;seq_read &amp;&amp; file_info-&gt;page) &#123;</span><br><span class="line">                <span class="keyword">int</span> ret = <span class="number">0</span>, old_offset = file_info-&gt;offset;</span><br><span class="line">                file_info-&gt;offset =</span><br><span class="line">                                   file_info-&gt;seq_read(file_info-&gt;private_data,</span><br><span class="line">                                   file_info-&gt;page, PAGE_SIZE - <span class="number">1</span>,</span><br><span class="line">                                   file_info-&gt;offset);</span><br><span class="line">                <span class="comment">// ret = seq_puts(sfile, (char*)file_info-&gt;page);</span></span><br><span class="line">                seq_puts(sfile, (<span class="keyword">char</span>*)file_info-&gt;page);</span><br><span class="line">                <span class="keyword">if</span> (ret) &#123;</span><br><span class="line">                        <span class="comment">/* run out of space - need to reprint */</span></span><br><span class="line">                        file_info-&gt;offset = old_offset;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>remove<code>ret</code>.</p>
+</li>
+<li><p>QAT1.6/quickassist/adf/user/user_proxy/src/adf_user_ETring_mgr_dp.c:</p>
+<p>Remove <code>INLINE</code> before these functions:</p>
+<ul>
+<li><p><code>icp_adf_getQueueNext</code></p>
+</li>
+<li><p><code>icp_adf_getSingleQueueAddr</code></p>
+</li>
+<li><p><code>icp_adf_updateQueueTail</code></p>
+</li>
+<li><p><code>icp_adf_pollQueue</code></p>
+</li>
+<li><p><code>icp_adf_queueDataToSend</code></p>
+</li>
+<li><p><code>icp_adf_getQueueMemory</code></p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>Enter root mode:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Run installer:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./installer</span><br></pre></td></tr></table></figure>
+<p>choose build then install.</p>
+</li>
+<li><p>Put in-tree qat modules to blacklist by add following items to <code>/etc/modprobe.d/blacklist.conf</code>:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">blacklist qat_dh895xcc</span><br><span class="line"></span><br><span class="line">blacklist intel_qat</span><br><span class="line"></span><br><span class="line">blacklist usdm_drv</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="2-Build-amp-install-ZFS"><a href="#2-Build-amp-install-ZFS" class="headerlink" title="2. Build &amp; install ZFS"></a>2. Build &amp; install ZFS</h2><ol>
+<li><p>Get spl source code from github:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zfsonlinux/spl</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Compile spl code:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd spl</span><br><span class="line">git checkout master</span><br><span class="line">sh autogen.sh</span><br><span class="line">./configure</span><br><span class="line">make -s -j$(nproc)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Get zfs source code from github:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zfsonlinux/zfs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Optional:</strong> To verify it is QAT that take effects, add some <code>printk</code> to zfs source code:</p>
+<p>module/zfs/qat_compress.c:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">qat_compress(<span class="keyword">qat_compress_dir_t</span> dir, <span class="keyword">char</span> *src, <span class="keyword">int</span> src_len,</span><br><span class="line">    <span class="keyword">char</span> *dst, <span class="keyword">int</span> dst_len, <span class="keyword">size_t</span> *c_len)</span><br><span class="line">&#123;</span><br><span class="line">        printk(<span class="string">"calling qat_compress...\n"</span>);</span><br><span class="line">        <span class="keyword">int</span> ret;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Compile and install zfs:</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> ../zfs</span><br><span class="line">git checkout master</span><br><span class="line"><span class="keyword">sh</span> autogen.<span class="keyword">sh</span></span><br><span class="line">./configure --with-qat=&lt;parent directory of QAT <span class="keyword">source</span>&gt;/QAT/QAT1.<span class="number">6</span></span><br><span class="line"><span class="keyword">make</span> -s -<span class="keyword">j</span>$(nproc)</span><br><span class="line"><span class="keyword">make</span> install</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="3-Verify-ZFS-amp-QAT"><a href="#3-Verify-ZFS-amp-QAT" class="headerlink" title="3. Verify ZFS &amp; QAT"></a>3. Verify ZFS &amp; QAT</h2><ol>
+<li><p>Simulate a disk with file:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/zero of=zfs_disk bs=1M count=4096</span><br><span class="line">losetup /dev/loop0 zfs_disk</span><br><span class="line"><span class="meta">#</span><span class="bash"> verify zfs status</span></span><br><span class="line">zpool status</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">set</span> compression <span class="keyword">for</span> zfs_test</span></span><br><span class="line">zfs set compression=gzip zfs_test</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Create a pool:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zpool create zfs_test /dev/loop0</span><br><span class="line">zpool status</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Set compression for zfs_test:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zfs set compression=gzip zfs_test</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Verify zfs_test parameters:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zfs get all</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Write something to zfs_test to verify QAT is working:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp qatmux.l.2.6.0-60.tgz /zfs_test</span><br></pre></td></tr></table></figure>
+<p><strong>Note:</strong> We should not verify by writing zero to zfs_test, because zfs will check this situation and handle it directly without calling compression function. So, don’t run something like this:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dd if=/dev/zero of=a bs=1M count=1024</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>If everything is OK, you will see “calling qat_compress…” in dmesg output.</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/07/18/compile_filesystem_as_module/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1593,136 +1806,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://fengzipei.github.io/2018/05/30/meaning-of-registers-s-name/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Zipei Feng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zipei Feng's notes">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/30/meaning-of-registers-s-name/" itemprop="url">meaning of registers's name</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-30T19:01:51+08:00">
-                2018-05-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>EAX: Accumulator Register</li>
-<li>EBX: Base Register</li>
-<li>ECX: Counter Register</li>
-<li>EDX: Data Register</li>
-<li>ESI: Source Index</li>
-<li>EDI: Destination Index</li>
-<li>EBP: Base Pointer</li>
-<li>ESP: Stack Pointer</li>
-</ul>
-<p>The common e prefix stands for extended, as these are 32-bit extensions of the 16-bit registers %ax, %bx, %cx, %dx, %di, %si, %bp, %sp, and %ip.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1773,7 +1856,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
